@@ -18,7 +18,6 @@
 package com.intel.analytics.sparkdl.tensor
 
 trait TensorMath[T] {
-  // scalastyle:off methodName
   def +(s: T): Tensor[T]
 
   def +(t: Tensor[T]): Tensor[T]
@@ -43,11 +42,12 @@ trait TensorMath[T] {
   def *(s: T): Tensor[T]
 
   def *(t: Tensor[T]): Tensor[T]
-  // scalastyle:on methodName
 
   def sum(): T
 
   def sum(dim: Int): Tensor[T]
+
+  def sum(x : Tensor[T], dim: Int): Tensor[T]
 
   def mean(): T
 
@@ -129,6 +129,11 @@ trait TensorMath[T] {
    */
   def cmul(y: Tensor[T]): Tensor[T]
 
+  def cmul(x: Tensor[T], y: Tensor[T]): Tensor[T]
+
+  def cdiv(y: Tensor[T]): Tensor[T]
+
+  def cdiv(x: Tensor[T], y: Tensor[T]): Tensor[T]
   /**
    * multiply all elements of this with value in-place.
    *
@@ -225,6 +230,14 @@ trait TensorMath[T] {
 
   // res = res + alpha * (mat * vec2)
   def addmv(alpha: T, mat: Tensor[T], vec2: Tensor[T]): Tensor[T]
+
+  /**
+   * Replaces all elements in-place with the elements of x to the power of n
+   * @param x
+   * @param n
+   * @return current tensor reference
+   */
+  def pow(x : Tensor[T], n : T): Tensor[T]
 
   /**
    * Get the top k smallest values and their indices.
