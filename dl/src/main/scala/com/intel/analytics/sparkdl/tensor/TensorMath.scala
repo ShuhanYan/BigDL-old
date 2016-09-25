@@ -18,6 +18,7 @@
 package com.intel.analytics.sparkdl.tensor
 
 trait TensorMath[T] {
+  // scalastyle:off methodName
   def +(s: T): Tensor[T]
 
   def +(t: Tensor[T]): Tensor[T]
@@ -42,6 +43,7 @@ trait TensorMath[T] {
   def *(s: T): Tensor[T]
 
   def *(t: Tensor[T]): Tensor[T]
+  // scalastyle:on methodName
 
   def sum(): T
 
