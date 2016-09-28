@@ -52,6 +52,8 @@ object TensorNumericMath {
 
     def pow(x: T, y: T): T
 
+    def log1p(x: T): T
+
     def isGreater(x: T, y: T): Boolean
 
     def rand(): T
@@ -82,6 +84,14 @@ object TensorNumericMath {
     def toType[@specialized(Float, Double, Int) K](t: T)(implicit c: ConvertableTo[K]): K
 
     def vPowx(n: Int, a: Array[T], aOffset: Int, b: T, y: Array[T], yOffset: Int): Unit
+
+    def vLn(n: Int, a: Array[T], aOffset: Int, y: Array[T], yOffset: Int): Unit
+
+    def vExp(n: Int, a: Array[T], aOffset: Int, y: Array[T], yOffset: Int): Unit
+
+    def vSqrt(n: Int, a: Array[T], aOffset: Int, y: Array[T], yOffset: Int): Unit
+
+    def vLog1p(n: Int, a: Array[T], aOffset: Int, y: Array[T], yOffset: Int): Unit
 
     def scal(n: Int, sa: T, sx: Array[T], offset: Int, incx: Int): Unit
 
@@ -138,6 +148,8 @@ object TensorNumericMath {
       def pow(x: Float): Float = Math.pow(x, -1).toFloat
 
       def pow(x: Float, y: Float): Float = Math.pow(x, y).toFloat
+
+      def log1p(x: Float): Float = Math.log1p(x).toFloat
 
       def isGreater(x: Float, y: Float): Boolean = (x > y)
 
@@ -198,6 +210,26 @@ object TensorNumericMath {
         yOffset: Int): Unit = {
         require(MKL.isMKLLoaded)
         MKL.vsPowx(n, a, aOffset, b, y, yOffset)
+      }
+
+      override def vLn(n: Int, a: Array[Float], aOffset: Int, y: Array[Float], yOffset: Int): Unit = {
+        require(MKL.isMKLLoaded)
+        MKL.vsLn(n, a, aOffset, y, yOffset)
+      }
+
+      override def vExp(n: Int, a: Array[Float], aOffset: Int, y: Array[Float], yOffset: Int): Unit = {
+        require(MKL.isMKLLoaded)
+        MKL.vsExp(n, a, aOffset, y, yOffset)
+      }
+
+      override def vSqrt(n: Int, a: Array[Float], aOffset: Int, y: Array[Float], yOffset: Int): Unit = {
+        require(MKL.isMKLLoaded)
+        MKL.vsSqrt(n, a, aOffset, y, yOffset)
+      }
+
+      override def vLog1p(n: Int, a: Array[Float], aOffset: Int, y: Array[Float], yOffset: Int): Unit = {
+        require(MKL.isMKLLoaded)
+        MKL.vsLog1p(n, a, aOffset, y, yOffset)
       }
 
       override def scal(n: Int, sa: Float, sx: Array[Float], offset: Int, incx: Int): Unit = {
@@ -276,6 +308,8 @@ object TensorNumericMath {
 
       def pow(x: Double, y: Double): Double = Math.pow(x, y)
 
+      def log1p(x: Double): Double = Math.log1p(x)
+
       def isGreater(x: Double, y: Double): Boolean = (x > y)
 
       def rand(): Double = RNG.uniform(0, 1)
@@ -334,6 +368,26 @@ object TensorNumericMath {
         yOffset: Int): Unit = {
         require(MKL.isMKLLoaded)
         MKL.vdPowx(n, a, aOffset, b, y, yOffset)
+      }
+
+      override def vLn(n: Int, a: Array[Double], aOffset: Int, y: Array[Double], yOffset: Int): Unit = {
+        require(MKL.isMKLLoaded)
+        MKL.vdLn(n, a, aOffset, y, yOffset)
+      }
+
+      override def vExp(n: Int, a: Array[Double], aOffset: Int, y: Array[Double], yOffset: Int): Unit = {
+        require(MKL.isMKLLoaded)
+        MKL.vdExp(n, a, aOffset, y, yOffset)
+      }
+
+      override def vSqrt(n: Int, a: Array[Double], aOffset: Int, y: Array[Double], yOffset: Int): Unit = {
+        require(MKL.isMKLLoaded)
+        MKL.vdSqrt(n, a, aOffset, y, yOffset)
+      }
+
+      override def vLog1p(n: Int, a: Array[Double], aOffset: Int, y: Array[Double], yOffset: Int): Unit = {
+        require(MKL.isMKLLoaded)
+        MKL.vdLog1p(n, a, aOffset, y, yOffset)
       }
 
       override def scal(n: Int, sa: Double, sx: Array[Double], offset: Int, incx: Int): Unit = {
