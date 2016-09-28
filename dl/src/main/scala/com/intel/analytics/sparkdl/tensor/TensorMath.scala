@@ -123,6 +123,21 @@ trait TensorMath[T] {
    */
   def add(y: Tensor[T]): Tensor[T]
 
+  def sub(value : T, y : Tensor[T]) : Tensor[T]
+
+  // Puts the result of x - value * y in current tensor
+  def sub(x : Tensor[T], value : T, y : Tensor[T]) : Tensor[T]
+
+  /**
+    * subtracts all elements of y from this
+    *
+    * @param y other tensor
+    * @return current tensor
+    */
+  def sub(y : Tensor[T]) : Tensor[T]
+
+  def sub(value : T) : Tensor[T]
+
   /**
    * y.cmul(x) multiplies all elements of y with corresponding elements of x.
    *
@@ -235,7 +250,8 @@ trait TensorMath[T] {
 
   /**
    * Replaces all elements in-place with the elements of x to the power of n
-   * @param x
+    *
+    * @param x
    * @param n
    * @return current tensor reference
    */
@@ -257,6 +273,7 @@ trait TensorMath[T] {
 
   /**
     * Replaces all elements in-place with the elements of lnx
+    *
     * @param x
     * @return current tensor reference
     */

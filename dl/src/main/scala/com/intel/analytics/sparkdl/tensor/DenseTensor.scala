@@ -731,6 +731,28 @@ private[tensor] class DenseTensor[@specialized(Float, Double) T: ClassTag](
     }
   }
 
+  override def sub(value : T, y : Tensor[T]) = DenseTensorMath.csub(this, this, ev.negative(value), y)
+
+  override def sub(y : Tensor[T]) = DenseTensorMath.csub(this, this, ev.fromType[Int](-1), y)
+
+  // Puts the result of x - value * y in current tensor
+  override def sub(x: Tensor[T], value: T, y: Tensor[T]): Tensor[T]= DenseTensorMath.csub(this, x, value, y)
+
+  override def sub(value: T): Tensor[T]= {
+    if(this.isContiguous()) {
+      val data = this.storage().array()
+      val offset = this.storageOffset() - 1
+      var i = 0
+      while(i < this.nElement()) {
+        data(offset + i) = ev.minus(data(offset + i), value)
+        i += 1
+      }
+      this
+    } else {
+      this.apply1(ev.minus(_, value))
+    }
+  }
+
   override def dot(y: Tensor[T]): T = {
     var sum = ev.fromType[Int](0)
     this.map(y, (a, b) => {
