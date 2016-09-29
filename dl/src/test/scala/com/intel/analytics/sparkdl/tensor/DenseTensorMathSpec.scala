@@ -520,12 +520,8 @@ class DenseTensorMathSpec extends FlatSpec with Matchers {
   }
 
   "powx" should "return correct value" in {
-    val t: Tensor[Float] = Tensor(1, 3)
-    var i = 1
-    t.apply1(_ => {
-      i = i + 1; i
-    })
-    val r = Tensor[Float](1,3)
+    val t: Tensor[Double] = Tensor(Storage(Array(2.0,3.0,4.0)))
+    val r: Tensor[Double] = Tensor(Storage(Array(0.0,0.0,0.0)))
     r.pow(t,2)
     r should be(Tensor(Storage(Array(4.0,9.0,16.0))))
   }
