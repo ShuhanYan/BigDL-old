@@ -129,11 +129,11 @@ trait TensorMath[T] {
   def sub(x : Tensor[T], value : T, y : Tensor[T]) : Tensor[T]
 
   /**
-    * subtracts all elements of y from this
-    *
-    * @param y other tensor
-    * @return current tensor
-    */
+   * subtracts all elements of y from this
+   *
+   * @param y other tensor
+   * @return current tensor
+   */
   def sub(y : Tensor[T]) : Tensor[T]
 
   def sub(value : T) : Tensor[T]
@@ -250,8 +250,8 @@ trait TensorMath[T] {
 
   /**
    * Replaces all elements in-place with the elements of x to the power of n
-    *
-    * @param x
+   *
+   * @param x
    * @param n
    * @return current tensor reference
    */
@@ -272,17 +272,35 @@ trait TensorMath[T] {
   : (Tensor[T], Tensor[T])
 
   /**
-    * Replaces all elements in-place with the elements of lnx
-    *
-    * @param x
-    * @return current tensor reference
-    */
+   * Computation of the natural logarithm of vector elements
+   *
+   * @param x
+   * @return current tensor reference
+   */
   def log(x : Tensor[T]): Tensor[T]
 
+  /**
+   * Computation of the exponential of vector elements
+   *
+   * @param x
+   * @return current tensor reference
+   */
   def exp(x: Tensor[T]): Tensor[T]
 
+  /**
+   * Computation of the square root of vector elements
+   *
+   * @param x
+   * @return current tensor reference
+   */
   def sqrt(x: Tensor[T]): Tensor[T]
 
+  /**
+   * Computation of the natural logarithm of vector elements that are increased by 1
+   *
+   * @param x
+   * @return current tensor reference
+   */
   def log1p(x: Tensor[T]): Tensor[T]
 
 }

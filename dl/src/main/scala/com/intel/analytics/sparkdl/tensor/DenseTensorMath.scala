@@ -111,8 +111,9 @@ object DenseTensorMath {
     self
   }
 
-  def csub[@specialized(Float, Double) T](self : DenseTensor[T], x : Tensor[T], value : T, y : Tensor[T])
-                                         (implicit ev:TensorNumeric[T]): Tensor[T] = {
+  def csub[@specialized(Float, Double) T](
+    self : DenseTensor[T], x : Tensor[T], value : T, y : Tensor[T])
+    (implicit ev: TensorNumeric[T]): Tensor[T] = {
     require(x != null)
 
     if(!self.eq(x)) {
@@ -120,9 +121,10 @@ object DenseTensorMath {
     }
 
     if(self.eq(x) && self.isContiguous() && y.isContiguous() && self.nElement() == y.nElement()) {
-      ev.axpy(y.nElement(), value, y.storage().array(), y.storageOffset() - 1, 1, self.storage().array(), self.storageOffset() - 1, 1)
+      ev.axpy(y.nElement(), value, y.storage().array(), y.storageOffset() - 1, 1,
+        self.storage().array(), self.storageOffset() - 1, 1)
     } else {
-      //      Apply.apply2[T](self, y, (a, i1, b, i2) => a(i1) = ev.minus(a(i1), ev.times(value, b(i2))))
+      // Apply.apply2[T](self, y, (a, i1, b, i2) => a(i1) = ev.minus(a(i1), ev.times(value, b(i2))))
       val func2 = new TensorFunc4[T] {
         override def apply(data1: Array[T], offset1: Int, data2: Array[T], offset2: Int): Unit =
         { data1(offset1) = ev.minus(data1(offset1), ev.times(value, data2(offset2)))  }}

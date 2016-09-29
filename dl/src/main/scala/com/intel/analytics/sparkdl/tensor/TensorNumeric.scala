@@ -212,22 +212,26 @@ object TensorNumericMath {
         MKL.vsPowx(n, a, aOffset, b, y, yOffset)
       }
 
-      override def vLn(n: Int, a: Array[Float], aOffset: Int, y: Array[Float], yOffset: Int): Unit = {
+      override def vLn(n: Int, a: Array[Float], aOffset: Int, y: Array[Float],
+                       yOffset: Int): Unit = {
         require(MKL.isMKLLoaded)
         MKL.vsLn(n, a, aOffset, y, yOffset)
       }
 
-      override def vExp(n: Int, a: Array[Float], aOffset: Int, y: Array[Float], yOffset: Int): Unit = {
+      override def vExp(n: Int, a: Array[Float], aOffset: Int, y: Array[Float],
+                        yOffset: Int): Unit = {
         require(MKL.isMKLLoaded)
         MKL.vsExp(n, a, aOffset, y, yOffset)
       }
 
-      override def vSqrt(n: Int, a: Array[Float], aOffset: Int, y: Array[Float], yOffset: Int): Unit = {
+      override def vSqrt(n: Int, a: Array[Float], aOffset: Int, y: Array[Float],
+                         yOffset: Int): Unit = {
         require(MKL.isMKLLoaded)
         MKL.vsSqrt(n, a, aOffset, y, yOffset)
       }
 
-      override def vLog1p(n: Int, a: Array[Float], aOffset: Int, y: Array[Float], yOffset: Int): Unit = {
+      override def vLog1p(n: Int, a: Array[Float], aOffset: Int, y: Array[Float],
+                          yOffset: Int): Unit = {
         require(MKL.isMKLLoaded)
         MKL.vsLog1p(n, a, aOffset, y, yOffset)
       }
@@ -370,22 +374,26 @@ object TensorNumericMath {
         MKL.vdPowx(n, a, aOffset, b, y, yOffset)
       }
 
-      override def vLn(n: Int, a: Array[Double], aOffset: Int, y: Array[Double], yOffset: Int): Unit = {
+      override def vLn(n: Int, a: Array[Double], aOffset: Int, y: Array[Double],
+                       yOffset: Int): Unit = {
         require(MKL.isMKLLoaded)
         MKL.vdLn(n, a, aOffset, y, yOffset)
       }
 
-      override def vExp(n: Int, a: Array[Double], aOffset: Int, y: Array[Double], yOffset: Int): Unit = {
+      override def vExp(n: Int, a: Array[Double], aOffset: Int, y: Array[Double],
+                        yOffset: Int): Unit = {
         require(MKL.isMKLLoaded)
         MKL.vdExp(n, a, aOffset, y, yOffset)
       }
 
-      override def vSqrt(n: Int, a: Array[Double], aOffset: Int, y: Array[Double], yOffset: Int): Unit = {
+      override def vSqrt(n: Int, a: Array[Double], aOffset: Int, y: Array[Double],
+                         yOffset: Int): Unit = {
         require(MKL.isMKLLoaded)
         MKL.vdSqrt(n, a, aOffset, y, yOffset)
       }
 
-      override def vLog1p(n: Int, a: Array[Double], aOffset: Int, y: Array[Double], yOffset: Int): Unit = {
+      override def vLog1p(n: Int, a: Array[Double], aOffset: Int, y: Array[Double],
+                          yOffset: Int): Unit = {
         require(MKL.isMKLLoaded)
         MKL.vdLog1p(n, a, aOffset, y, yOffset)
       }

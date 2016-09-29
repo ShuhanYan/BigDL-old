@@ -731,15 +731,18 @@ private[tensor] class DenseTensor[@specialized(Float, Double) T: ClassTag](
     }
   }
 
-  override def sub(value : T, y : Tensor[T]) = DenseTensorMath.csub(this, this, ev.negative(value), y)
+  override def sub(value : T, y : Tensor[T]) : Tensor[T] =
+    DenseTensorMath.csub(this, this, ev.negative(value), y)
 
-  override def sub(y : Tensor[T]) = DenseTensorMath.csub(this, this, ev.fromType[Int](-1), y)
+  override def sub(y : Tensor[T]) : Tensor[T] =
+    DenseTensorMath.csub(this, this, ev.fromType[Int](-1), y)
 
   // Puts the result of x - value * y in current tensor
-  override def sub(x: Tensor[T], value: T, y: Tensor[T]): Tensor[T]= DenseTensorMath.csub(this, x, value, y)
+  override def sub(x: Tensor[T], value: T, y: Tensor[T]): Tensor[T] =
+    DenseTensorMath.csub(this, x, value, y)
 
-  override def sub(value: T): Tensor[T]= {
-    if(this.isContiguous()) {
+  override def sub(value: T): Tensor[T] = {
+    if (this.isContiguous()) {
       val data = this.storage().array()
       val offset = this.storageOffset() - 1
       var i = 0
@@ -1271,7 +1274,7 @@ private[tensor] class DenseTensor[@specialized(Float, Double) T: ClassTag](
     this
   }
 
-  override def log(x:Tensor[T]): Tensor[T] = {
+  override def log(x: Tensor[T]): Tensor[T] = {
     require(this.nElement() == x.nElement())
     if (MKL.isMKLLoaded && this.isContiguous() && x.isContiguous()) {
       ev.vLn(this.nElement(), x.storage().array(), x.storageOffset() - 1,
@@ -1287,7 +1290,7 @@ private[tensor] class DenseTensor[@specialized(Float, Double) T: ClassTag](
     this
   }
 
-  override def exp(x:Tensor[T]): Tensor[T] = {
+  override def exp(x: Tensor[T]): Tensor[T] = {
     require(this.nElement() == x.nElement())
     if (MKL.isMKLLoaded && this.isContiguous() && x.isContiguous()) {
       ev.vExp(this.nElement(), x.storage().array(), x.storageOffset() - 1,
@@ -1303,7 +1306,7 @@ private[tensor] class DenseTensor[@specialized(Float, Double) T: ClassTag](
     this
   }
 
-  override def sqrt(x:Tensor[T]): Tensor[T] = {
+  override def sqrt(x: Tensor[T]): Tensor[T] = {
     require(this.nElement() == x.nElement())
     if (MKL.isMKLLoaded && this.isContiguous() && x.isContiguous()) {
       ev.vSqrt(this.nElement(), x.storage().array(), x.storageOffset() - 1,
@@ -1319,7 +1322,7 @@ private[tensor] class DenseTensor[@specialized(Float, Double) T: ClassTag](
     this
   }
 
-  override def log1p(x:Tensor[T]): Tensor[T] = {
+  override def log1p(x: Tensor[T]): Tensor[T] = {
     require(this.nElement() == x.nElement())
     if (MKL.isMKLLoaded && this.isContiguous() && x.isContiguous()) {
       ev.vLog1p(this.nElement(), x.storage().array(), x.storageOffset() - 1,

@@ -142,12 +142,14 @@ class DenseTensorMathSpec extends FlatSpec with Matchers {
     val mat1: Tensor[Double] = new DenseTensor(3, 2)
     var i = 0
     mat1.apply1(_ => {
-      i = i + 1; i
+      i = i + 1;
+      i
     })
     val mat2: Tensor[Double] = new DenseTensor(2, 3)
     i = 0
     mat2.apply1(_ => {
-      i = i + 1; i
+      i = i + 1;
+      i
     })
     val r = mat2 * mat1
     r(Array(1, 1)) should be(22)
@@ -160,12 +162,14 @@ class DenseTensorMathSpec extends FlatSpec with Matchers {
     val mat1: Tensor[Double] = new DenseTensor(3, 2)
     var i = 0
     mat1.apply1(_ => {
-      i = i + 1; i
+      i = i + 1;
+      i
     })
     val mat2: Tensor[Double] = new DenseTensor(3, 2)
     i = 0
     mat2.apply1(_ => {
-      i = i + 1; i
+      i = i + 1;
+      i
     })
     val r = mat2.t * mat1
     r(Array(1, 1)) should be(35)
@@ -178,12 +182,14 @@ class DenseTensorMathSpec extends FlatSpec with Matchers {
     val mat1: Tensor[Double] = new DenseTensor(2, 3)
     var i = 0
     mat1.apply1(_ => {
-      i = i + 1; i
+      i = i + 1;
+      i
     })
     val mat2: Tensor[Double] = new DenseTensor(2, 3)
     i = 0
     mat2.apply1(_ => {
-      i = i + 1; i
+      i = i + 1;
+      i
     })
     val r = mat2 * mat1.t
     r(Array(1, 1)) should be(14)
@@ -196,12 +202,14 @@ class DenseTensorMathSpec extends FlatSpec with Matchers {
     val mat1: Tensor[Double] = new DenseTensor(3, 2)
     var i = 0
     mat1.apply1(_ => {
-      i = i + 1; i
+      i = i + 1;
+      i
     })
     val mat2: Tensor[Double] = new DenseTensor(2, 3)
     i = 0
     mat2.apply1(_ => {
-      i = i + 1; i
+      i = i + 1;
+      i
     })
     val r = mat1.t * mat2.t
     r(Array(1, 1)) should be(22)
@@ -259,7 +267,8 @@ class DenseTensorMathSpec extends FlatSpec with Matchers {
     val t: Tensor[Double] = new DenseTensor(3, 3)
     var i = 0
     t.apply1(v => {
-      i = i + 1; i
+      i = i + 1;
+      i
     })
 
     t.max() should be(9)
@@ -287,7 +296,8 @@ class DenseTensorMathSpec extends FlatSpec with Matchers {
     val t: Tensor[Double] = new DenseTensor(2, 3)
     var i = 0
     t.apply1(e => {
-      i = i + 1; i
+      i = i + 1;
+      i
     })
     t.sum() should be(21)
 
@@ -413,7 +423,8 @@ class DenseTensorMathSpec extends FlatSpec with Matchers {
     val t: Tensor[Double] = new DenseTensor(2, 3)
     var i = 0
     t.apply1(e => {
-      i = i + 1; i
+      i = i + 1;
+      i
     })
     t.mean() should be(3.5)
 
@@ -438,7 +449,8 @@ class DenseTensorMathSpec extends FlatSpec with Matchers {
     val t: Tensor[Double] = new DenseTensor(2, 3, 4)
     var i = 0
     t.apply1(e => {
-      i = i + 1; i
+      i = i + 1;
+      i
     })
     t.mean() should be(12.5)
 
@@ -520,70 +532,70 @@ class DenseTensorMathSpec extends FlatSpec with Matchers {
   }
 
   "powx" should "return correct value" in {
-    val t: Tensor[Double] = Tensor(Storage(Array(2.0,3.0,4.0)))
-    val r: Tensor[Double] = Tensor(Storage(Array(0.0,0.0,0.0)))
-    r.pow(t,2)
-    r should be(Tensor(Storage(Array(4.0,9.0,16.0))))
+    val t: Tensor[Double] = Tensor(Storage(Array(2.0, 3.0, 4.0)))
+    val r: Tensor[Double] = Tensor(Storage(Array(0.0, 0.0, 0.0)))
+    r.pow(t, 2)
+    r should be(Tensor(Storage(Array(4.0, 9.0, 16.0))))
   }
 
   "exp" should "return correct value" in {
-    val t: Tensor[Double] = Tensor(Storage(Array(2.0,3.0,4.0)))
-    val r: Tensor[Double] = Tensor(Storage(Array(0.0,0.0,0.0)))
+    val t: Tensor[Double] = Tensor(Storage(Array(2.0, 3.0, 4.0)))
+    val r: Tensor[Double] = Tensor(Storage(Array(0.0, 0.0, 0.0)))
     r.exp(t)
-    r should be(Tensor(Storage(Array(7.389056,20.085537,54.59815))))
+    r should be(Tensor(Storage(Array(7.389056, 20.085537, 54.59815))))
   }
 
   "sqrt" should "return correct value" in {
-    val t: Tensor[Double] = Tensor(Storage(Array(2.0,3.0,4.0)))
-    val r: Tensor[Double] = Tensor(Storage(Array(0.0,0.0,0.0)))
+    val t: Tensor[Double] = Tensor(Storage(Array(2.0, 3.0, 4.0)))
+    val r: Tensor[Double] = Tensor(Storage(Array(0.0, 0.0, 0.0)))
     r.sqrt(t)
-    r should be(Tensor(Storage(Array(1.4142135,1.7320508,2.0))))
+    r should be(Tensor(Storage(Array(1.4142135, 1.7320508, 2.0))))
   }
 
   "log1p" should "return correct value" in {
-    val t: Tensor[Double] = Tensor(Storage(Array(2.0,3.0,4.0)))
-    val r: Tensor[Double] = Tensor(Storage(Array(0.0,0.0,0.0)))
+    val t: Tensor[Double] = Tensor(Storage(Array(2.0, 3.0, 4.0)))
+    val r: Tensor[Double] = Tensor(Storage(Array(0.0, 0.0, 0.0)))
     r.log1p(t)
-    r should be(Tensor(Storage(Array(1.0986123,1.3862944,1.609438))))
+    r should be(Tensor(Storage(Array(1.0986123, 1.3862944, 1.609438))))
   }
 
-  "matrix sub(T)" should "return correct value" in{
-    val a : Tensor[Double] = Tensor(Storage(Array(2.0,3.0,4.0)))
+  "matrix sub(T)" should "return correct value" in {
+    val a: Tensor[Double] = Tensor(Storage(Array(2.0, 3.0, 4.0)))
     val m = 1
 
     a.sub(m)
 
-    a should be (Tensor(Storage(Array(1.0,2.0,3.0))))
+    a should be(Tensor(Storage(Array(1.0, 2.0, 3.0))))
   }
 
-  "matrix sub(T,Tensor[T])" should "return correct value" in{
-    val a : Tensor[Double] = Tensor(Storage(Array(2.0,3.0,4.0)))
-    val b : Tensor[Double] = Tensor(Storage(Array(1.0,2.0,3.0)))
+  "matrix sub(T,Tensor[T])" should "return correct value" in {
+    val a: Tensor[Double] = Tensor(Storage(Array(2.0, 3.0, 4.0)))
+    val b: Tensor[Double] = Tensor(Storage(Array(1.0, 2.0, 3.0)))
     val m = 2
 
     a.sub(m, b)
-    a should be (Tensor(Storage(Array(0.0,-1.0,-2.0))))
+    a should be(Tensor(Storage(Array(0.0, -1.0, -2.0))))
   }
 
-  "matrix sub(Tensor[T])" should "return correct value" in{
-    val a : Tensor[Double] = Tensor(Storage(Array(2.0,3.0,4.0)))
-    val b : Tensor[Double] = Tensor(Storage(Array(1.0,2.0,3.0)))
+  "matrix sub(Tensor[T])" should "return correct value" in {
+    val a: Tensor[Double] = Tensor(Storage(Array(2.0, 3.0, 4.0)))
+    val b: Tensor[Double] = Tensor(Storage(Array(1.0, 2.0, 3.0)))
 
     a.sub(b)
 
-    val r = Tensor(Storage(Array(1.0,1.0,1.0)))
+    val r = Tensor(Storage(Array(1.0, 1.0, 1.0)))
 
-    a should be (r)
+    a should be(r)
   }
 
-  "matrix sub(Tensor[T],T,Tensor[T])" should "return correct value" in{
-    val a : Tensor[Double] = Tensor(Storage(Array(2.0,3.0,4.0)))
-    val b : Tensor[Double] = Tensor(Storage(Array(1.0,2.0,3.0)))
-    val c : Tensor[Double] = Tensor(Storage(Array(1.0,2.0,3.0)))
+  "matrix sub(Tensor[T],T,Tensor[T])" should "return correct value" in {
+    val a: Tensor[Double] = Tensor(Storage(Array(2.0, 3.0, 4.0)))
+    val b: Tensor[Double] = Tensor(Storage(Array(1.0, 2.0, 3.0)))
+    val c: Tensor[Double] = Tensor(Storage(Array(1.0, 2.0, 3.0)))
 
     val m = 2
     val d = a.sub(c, m, b)
 
-    d should be (Tensor(Storage(Array(-1.0,-2.0,-3.0))))
+    d should be(Tensor(Storage(Array(-1.0, -2.0, -3.0))))
   }
 }
