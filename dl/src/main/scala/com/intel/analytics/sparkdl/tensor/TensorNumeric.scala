@@ -119,6 +119,7 @@ object TensorNumericMath {
     def *(rhs: T): T = ev.times(lhs, rhs)
 
     def /(rhs: T): T = ev.divide(lhs, rhs)
+
     // scalastyle:on methodName
   }
 
@@ -448,7 +449,5 @@ object TensorNumericMath {
         r
       }
     }
-
   }
-
 }

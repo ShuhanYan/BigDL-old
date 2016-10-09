@@ -59,7 +59,7 @@ object GoogleNet_v1 {
 
   def apply[D: ClassTag](classNum: Int)(implicit ev: TensorNumeric[D]): Module[D] = {
     val feature1 = new Sequential[D]
-    feature1.add(new SpatialConvolution[D](3, 64, 7, 7, 2, 2, 3, 3).setInitMethod(Xavier)
+    feature1.add(new SpatialConvolution[D](3, 64, 7, 7, 2, 2, 3, 3, 1, false).setInitMethod(Xavier)
       .setName("conv1/7x7_s2"))
     feature1.add(new ReLU[D](true).setName("conv1/relu_7x7"))
     feature1.add(new SpatialMaxPooling[D](3, 3, 2, 2).ceil().setName("pool1/3x3_s2"))
@@ -115,7 +115,7 @@ object GoogleNet_v1 {
     output3.add(new Linear[D](1024, classNum).setInitMethod(Xavier).setName("loss3/classifier"))
     output3.add(new LogSoftMax[D].setName("loss3/loss3"))
 
-    val split2 = new Concat[D](2)
+    val split2 = new Concat[D](2).setName("split2")
     split2.add(output3)
     split2.add(output2)
 
@@ -123,7 +123,7 @@ object GoogleNet_v1 {
     mainBranch.add(feature2)
     mainBranch.add(split2)
 
-    val split1 = new Concat[D](2)
+    val split1 = new Concat[D](2).setName("split1")
     split1.add(mainBranch)
     split1.add(output1)
 
@@ -140,7 +140,8 @@ object GoogleNet_v1 {
 object GoogleNet_v2 {
   def apply[D: ClassTag](classNum: Int)(implicit ev: TensorNumeric[D]): Module[D] = {
     val features1 = new Sequential[D]
-    features1.add(new SpatialConvolution[D](3, 64, 7, 7, 2, 2, 3, 3).setName("conv1/7x7_s2"))
+    features1.add(new SpatialConvolution[D](3, 64, 7, 7, 2, 2, 3, 3, 1, false)
+      .setName("conv1/7x7_s2"))
     features1.add(new SpatialBatchNormalization(64, 1e-3).setName("conv1/7x7_s2/bn"))
     features1.add(new ReLU[D](true).setName("conv1/7x7_s2/bn/sc/relu"))
     features1.add(new SpatialMaxPooling[D](3, 3, 2, 2).ceil().setName("pool1/3x3_s2"))
