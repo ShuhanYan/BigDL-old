@@ -18,11 +18,11 @@
 package com.intel.analytics.sparkdl.tensor
 
 /**
- * It provides multiple math operation function for manipulating Tensor objects.
+ * It provides multiple math operation functions for manipulating Tensor objects.
  * All functions support both allocating a new Tensor to return the result
- * and treating the caller as the target Tensor, in which case the target Tensor(s)
- * will be resized accordingly and filled with result. This property is especially
- * useful when one wants have tight control over when memory is allocated.
+ * and treating the caller as a target Tensor, in which case the target Tensor(s)
+ * will be resized accordingly and filled with the result. This property is especially
+ * useful when one wants to have tight control over when memory is allocated.
  *
  * @tparam T should be double or float
  */
@@ -55,7 +55,7 @@ trait TensorMath[T] {
   }
 
   /**
-   * subtract all elements of this with value not in place.
+   * subtract all elements of this with the value not in place.
    * It will allocate new memory.
    * @param s
    * @return

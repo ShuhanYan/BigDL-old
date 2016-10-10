@@ -462,8 +462,9 @@ trait Tensor[T] extends Serializable with TensorMath[T] {
   def view(sizes: Array[Int]): Tensor[T]
 
   /**
-   * Returns a tensor which contains all slices of size size
-   * in the dimension dim. Step between two slices is given by step.
+
+   * Returns a tensor which contains all slices of size @param size
+   * in the dimension @param dim. Step between two slices is given by @param step.
    * @param dim
    * @param size
    * @param step Step between two slices
@@ -592,7 +593,7 @@ object Tensor {
     implicit ev: TensorNumeric[T]): Tensor[T] = new DenseTensor[T](d1, d2, d3, d4, d5)
 
   /**
-   * Create a tensor on an given dimensions. The tensor size will be the product of dims
+   * Create a tensor on given dimensions. The tensor size will be the product of dims
    * @param dims
    * @param ev
    * @tparam T
@@ -604,7 +605,7 @@ object Tensor {
       DenseTensor.size2Stride(dims.toArray), dims.length)
 
   /**
-   * Create a tensor on an given sizes. The tensor size will be the product of sizes
+   * Create a tensor on given sizes. The tensor size will be the product of sizes
    * @param sizes
    * @param ev
    * @tparam T
@@ -654,7 +655,7 @@ object Tensor {
   }
 
   /**
-   * create a tensor with an given tensor. The tensor will have same size
+   * create a tensor with a given tensor. The tensor will have same size
    * with the given tensor.
    * @param other the given tensor
    * @param ev
@@ -665,7 +666,7 @@ object Tensor {
     implicit ev: TensorNumeric[T]): Tensor[T] = new DenseTensor(other)
 
   /**
-   * create a tensor with an given breeze vector. The tensor will have same size
+   * create a tensor with a given breeze vector. The tensor will have the same size
    * with the given breeze vector.
    * @param vector the given breeze vector
    * @param ev
@@ -677,7 +678,7 @@ object Tensor {
     vector.offset + 1, Array(vector.length), Array(vector.stride))
 
   /**
-   * create a tensor with an given spark Densevector. The tensor will have same size
+   * create a tensor with a given spark Densevector. The tensor will have the same size
    * with the given spark Densevector.
    * @param vector the given spark Densevector
    * @return
@@ -686,7 +687,7 @@ object Tensor {
     apply[Double](Storage(vector.toArray))
 
   /**
-   * create a tensor with an given breeze matrix. The tensor will have same size with
+   * create a tensor with a given breeze matrix. The tensor will have the same size with
    * the given breeze matrix.
    * @param matrix the given breeze matrix
    * @param ev
@@ -699,7 +700,7 @@ object Tensor {
     if (matrix.isTranspose) Array(1, matrix.majorStride) else Array(matrix.majorStride, 1))
 
   /**
-   * create a tensor with an given spark Densematrix. The tensor will have same size with
+   * create a tensor with a given spark Densematrix. The tensor will have the same size with
    * the given spark Densematrix.
    * @param matrix
    * @return
