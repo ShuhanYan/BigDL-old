@@ -9,7 +9,7 @@ import org.scalatest.FlatSpec
   */
 class BreezeMathSpec  extends FlatSpec{
   def init(length:Int,rangeMin:Float,rangeMax:Float,interval:Float): DenseMatrix[Float] ={
-    val result = new DenseMatrix[Float](sizeLarge, sizeLarge)
+    val result = new DenseMatrix[Float](length, length)
     var const = rangeMin
     for (i <- 0 until(length)){
       for (j <- 0 until(length)) {
