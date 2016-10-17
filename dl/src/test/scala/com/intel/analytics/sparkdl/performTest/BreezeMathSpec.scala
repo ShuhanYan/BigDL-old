@@ -1,25 +1,39 @@
 package com.intel.analytics.sparkdl.performTest
 import breeze.linalg._
 import breeze.numerics._
+import breeze.stats.distributions.Rand
 import org.scalatest.FlatSpec
 
 /**
   * Created by yansh on 16-9-27.
   */
 class BreezeMathSpec  extends FlatSpec{
+  def init(length:Int,rangeMin:Float,rangeMax:Float,interval:Float): DenseMatrix[Float] ={
+    val result = new DenseMatrix[Float](sizeLarge, sizeLarge)
+    var const = rangeMin
+    for (i <- 0 until(length)){
+      for (j <- 0 until(length)) {
+        if (const > rangeMax) const = rangeMin
+        result.update(i, j, const)
+        const = const+interval
+      }
+    }
+    result
+  }
+
   val Seed = 100
   val sizeLarge = 4096
-  val matrixLargeLeft = DenseMatrix.rand(sizeLarge, sizeLarge)
-  val matrixLargeRight = DenseMatrix.rand(sizeLarge, sizeLarge)
-  val vectorLarge = DenseVector.rand(sizeLarge)
+  val matrixLargeLeft = init(sizeLarge,-1000,1000,0.5f)
+  val matrixLargeRight = init(sizeLarge,-1000,1000,0.5f)
+  val vectorLarge = DenseVector.rand(sizeLarge ,Rand.uniform.map(_.toFloat))
   val sizeMid = 512
-  val matrixMidLeft = DenseMatrix.rand(sizeMid, sizeMid)
-  val matrixMidRight = DenseMatrix.rand(sizeMid, sizeMid)
-  val vectorMid = DenseVector.rand(sizeMid)
+  val matrixMidLeft = init(sizeMid,-1000,1000,0.5f)
+  val matrixMidRight = init(sizeMid,-1000,1000,0.5f)
+  val vectorMid = DenseVector.rand(sizeMid ,Rand.uniform.map(_.toFloat))
   val sizeSmall = 32
-  val matrixSmallLeft = DenseMatrix.rand(sizeSmall, sizeSmall)
-  val matrixSmallRight = DenseMatrix.rand(sizeSmall, sizeSmall)
-  val vectorSmall = DenseVector.rand(sizeSmall)
+  val matrixSmallLeft = init(sizeSmall,-500,500,1)
+  val matrixSmallRight = init(sizeSmall,-500,500,1)
+  val vectorSmall = DenseVector.rand(sizeSmall ,Rand.uniform.map(_.toFloat))
   val scalar = 5
 
   var testCase = " Breeze 4096 * 4096 matrix add operation"

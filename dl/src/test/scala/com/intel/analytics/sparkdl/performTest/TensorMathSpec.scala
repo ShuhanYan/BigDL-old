@@ -8,22 +8,33 @@ import com.intel.analytics.sparkdl.utils.RandomGenerator._
   * Created by yao on 9/7/16.
   */
 class TensorMathSpec extends FlatSpec {
+  def init(length:Int,rangeMin:Float,rangeMax:Float,interval:Float): Tensor[Float] ={
+    val result = Tensor[Float](length, length).fill(1.0f)
+    var const = rangeMin
+    for (i <- 1 until(length)){
+      for (j <- 1 until(length)) {
+        if (const > rangeMax) const = rangeMin
+        result.setValue(i, j, const)
+        const = const+interval
+      }
+    }
+    result
+  }
   val Seed = 100
   RNG.setSeed(Seed)
   val sizeLarge = 4096
-  val matrixLargeLeft = Tensor[Float](sizeLarge, sizeLarge).rand()
-  val matrixLargeRight = Tensor[Float](sizeLarge, sizeLarge).rand()
+  val matrixLargeLeft = init(sizeLarge,-1000,1000,0.5f)
+  val matrixLargeRight = init(sizeLarge,-1000,1000,0.5f)
   val vectorLarge = Tensor[Float](sizeLarge).rand()
   val sizeMid = 512
-  val matrixMidLeft = Tensor[Float](sizeMid, sizeMid).rand()
-  val matrixMidRight = Tensor[Float](sizeMid, sizeMid).rand()
+  val matrixMidLeft = init(sizeMid,-1000,1000,0.5f)
+  val matrixMidRight = init(sizeMid,-1000,1000,0.5f)
   val vectorMid = Tensor[Float](sizeMid).rand()
   val sizeSmall = 32
-  val matrixSmallLeft = Tensor[Float](sizeSmall, sizeSmall).rand()
-  val matrixSmallRight = Tensor[Float](sizeSmall, sizeSmall).rand()
+  val matrixSmallLeft = init(sizeSmall,-500,500,1)
+  val matrixSmallRight = init(sizeSmall,-500,500,1)
   val vectorSmall = Tensor[Float](sizeSmall).rand()
   val scalar = 5
-
 
   var testCase = "4096 * 4096 matrix add operation"
   TestUtils.testMathOperation(() => matrixLargeLeft.add(matrixLargeRight), testCase)
