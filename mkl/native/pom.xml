@@ -51,7 +51,7 @@
                                 </source>
                             </sources>
                             <compilerStartOptions>
-                                <compilerStartOption>-I ${MKL_HOME}/include/</compilerStartOption>
+                                <compilerStartOption>-I ${MKLROOT}/include/</compilerStartOption>
                                 <compilerStartOption>-I ${JAVA_HOME}/include/</compilerStartOption>
                                 <compilerStartOption>-I ${JAVA_HOME}/include/linux/</compilerStartOption>
                             </compilerStartOptions>

@@ -129,11 +129,11 @@ trait TensorMath[T] {
   def sub(x : Tensor[T], value : T, y : Tensor[T]) : Tensor[T]
 
   /**
-    * subtracts all elements of y from this
-    *
-    * @param y other tensor
-    * @return current tensor
-    */
+   * subtracts all elements of y from this
+   *
+   * @param y other tensor
+   * @return current tensor
+   */
   def sub(y : Tensor[T]) : Tensor[T]
 
   def sub(value : T) : Tensor[T]
@@ -250,13 +250,14 @@ trait TensorMath[T] {
 
   /**
    * Replaces all elements in-place with the elements of x to the power of n
-    *
-    * @param x
+   *
+   * @param y
    * @param n
    * @return current tensor reference
    */
-  def pow(x : Tensor[T], n : T): Tensor[T]
+  def pow(y : Tensor[T], n : T): Tensor[T]
 
+  def pow(n : T): Tensor[T]
   /**
    * Get the top k smallest values and their indices.
    *
@@ -268,21 +269,27 @@ trait TensorMath[T] {
    * @return
    */
   def topk(k: Int, dim: Int = -1, increase: Boolean = true, result: Tensor[T] = null,
-    indices: Tensor[T] = null)
+           indices: Tensor[T] = null)
   : (Tensor[T], Tensor[T])
 
   /**
-    * Replaces all elements in-place with the elements of lnx
-    *
-    * @param x
-    * @return current tensor reference
-    */
-  def log(x : Tensor[T]): Tensor[T]
+   * Replaces all elements in-place with the elements of lnx
+   *
+   * @param y
+   * @return current tensor reference
+   */
+  def log(y : Tensor[T]): Tensor[T]
 
-  def exp(x: Tensor[T]): Tensor[T]
+  def exp(y: Tensor[T]): Tensor[T]
 
-  def sqrt(x: Tensor[T]): Tensor[T]
+  def sqrt(y: Tensor[T]): Tensor[T]
 
-  def log1p(x: Tensor[T]): Tensor[T]
+  def log1p(y: Tensor[T]): Tensor[T]
+
+  def log(): Tensor[T]
+
+  def exp(): Tensor[T]
+
+  def log1p(): Tensor[T]
 
 }
