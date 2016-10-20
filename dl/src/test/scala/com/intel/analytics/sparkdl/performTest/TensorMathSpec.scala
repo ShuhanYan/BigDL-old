@@ -101,6 +101,7 @@ class TensorMathSpec extends FlatSpec {
 
   testCase = "32 * 32 matrix pow operation"
   TestUtils.testMathOperation(() => matrixSmallLeft.pow(matrixSmallRight, scalar), testCase, 3000)
+  println(matrixSmallLeft)
 
   testCase = "4096 * 4096 matrix log operation"
   TestUtils.testMathOperation(() => matrixLargeLeft.log(matrixLargeRight), testCase)
@@ -111,6 +112,8 @@ class TensorMathSpec extends FlatSpec {
   testCase = "32 * 32 matrix log operation"
   TestUtils.testMathOperation(() => matrixSmallLeft.log(matrixSmallRight), testCase, 3000)
 
+  println(matrixSmallLeft)
+
   testCase = "4096 * 4096 matrix exp operation"
   TestUtils.testMathOperation(() => matrixLargeLeft.exp(matrixLargeRight), testCase)
 
@@ -119,6 +122,7 @@ class TensorMathSpec extends FlatSpec {
 
   testCase = "32 * 32 matrix exp operation"
   TestUtils.testMathOperation(() => matrixSmallLeft.exp(matrixSmallRight), testCase, 3000)
+  println(matrixSmallLeft)
 
   testCase = "4096 * 4096 matrix sqrt operation"
   TestUtils.testMathOperation(() => matrixLargeLeft.sqrt(matrixLargeRight), testCase)
@@ -128,6 +132,7 @@ class TensorMathSpec extends FlatSpec {
 
   testCase = "32 * 32 matrix sqrt operation"
   TestUtils.testMathOperation(() => matrixSmallLeft.sqrt(matrixSmallRight), testCase, 3000)
+  println(matrixSmallLeft)
 
   testCase = "4096 * 4096 matrix log1p operation"
   TestUtils.testMathOperation(() => matrixLargeLeft.log1p(matrixLargeRight), testCase)
@@ -137,5 +142,6 @@ class TensorMathSpec extends FlatSpec {
 
   testCase = "32 * 32 matrix log1p operation"
   TestUtils.testMathOperation(() => matrixSmallLeft.log1p(matrixSmallRight), testCase, 3000)
+  println(matrixSmallLeft)
 
 }
