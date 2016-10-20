@@ -48,14 +48,14 @@ object DenseTensorMath {
 
   def cmul[@specialized(Float, Double) T](self: DenseTensor[T], x: Tensor[T], y: Tensor[T])
                                          (implicit ev: TensorNumeric[T]): Tensor[T] = {
-    if (x != null) {
+    /*if (x != null) {
       self.copy(x)
-    }
+    }*/
     require(self.nElement() == y.nElement(), "element number doesn't match")
     if (self.isContiguous() && y.isContiguous()) {
-      ev.vMul(self.nElement(), self.storage().array(), self.storageOffset() - 1,
-        y.storage().array(), y.storageOffset() - 1, self.storage().array(), self.storageOffset()
-          - 1)
+      ev.vMul(self.nElement(), x.storage().array(), x.storageOffset() - 1,
+        y.storage().array(), y.storageOffset() - 1, self.storage().array(),
+        self.storageOffset() - 1)
     } else {
       val func = new TensorFunc4[T] {
         override def apply(data1: Array[T], offset1: Int, data2: Array[T], offset2: Int): Unit = {
@@ -69,12 +69,12 @@ object DenseTensorMath {
 
   def cdiv[@specialized(Float, Double) T](self: DenseTensor[T], x: Tensor[T], y: Tensor[T])
                                          (implicit ev: TensorNumeric[T]): Tensor[T] = {
-    if (x != null) {
+    /*if (x != null) {
       self.copy(x)
-    }
+    }*/
     require(self.nElement() == y.nElement(), "element number doesn't match")
     if (self.isContiguous() && y.isContiguous() && MKL.isMKLLoaded) {
-      ev.vDiv(self.nElement(), self.storage().array(), self.storageOffset() - 1,
+      ev.vDiv(self.nElement(), x.storage().array(), x.storageOffset() - 1,
         y.storage().array(), y.storageOffset() - 1, self.storage().array(), self.storageOffset()
           - 1)
     } else {

@@ -99,6 +99,12 @@ object TensorNumericMath {
 
     def add(n: Int, a: Array[T], offset: Int, v: T, stride: Int): Unit
 
+    def vAdd(n: Int, a: Array[T], aOffset: Int, b: Array[T], bOffset: Int, y: Array[T],
+             yOffset: Int): Unit
+
+    def vSub(n: Int, a: Array[T], aOffset: Int, b: Array[T], bOffset: Int, y: Array[T],
+             yOffset: Int): Unit
+
     def vMul(n: Int, a: Array[T], aOffset: Int, b: Array[T], bOffset: Int, y: Array[T],
       yOffset: Int): Unit
 
@@ -244,6 +250,18 @@ object TensorNumericMath {
           a(offset + i * stride) += v
           i += 1
         }
+      }
+
+      override def vAdd(n: Int, a: Array[Float], aOffset: Int, b: Array[Float], bOffset: Int,
+        y: Array[Float], yOffset: Int): Unit = {
+        require(MKL.isMKLLoaded)
+        MKL.vsAdd(n, a, aOffset, b, bOffset, y, yOffset)
+      }
+
+      override def vSub(n: Int, a: Array[Float], aOffset: Int, b: Array[Float], bOffset: Int,
+       y: Array[Float], yOffset: Int): Unit = {
+        require(MKL.isMKLLoaded)
+        MKL.vsSub(n, a, aOffset, b, bOffset, y, yOffset)
       }
 
       override def vMul(n: Int, a: Array[Float], aOffset: Int, b: Array[Float], bOffset: Int,
@@ -402,6 +420,18 @@ object TensorNumericMath {
           a(offset + i * stride) += v
           i += 1
         }
+      }
+
+      override def vAdd(n: Int, a: Array[Double], aOffset: Int, b: Array[Double], bOffset: Int,
+                        y: Array[Double], yOffset: Int): Unit = {
+        require(MKL.isMKLLoaded)
+        MKL.vdAdd(n, a, aOffset, b, bOffset, y, yOffset)
+      }
+
+      override def vSub(n: Int, a: Array[Double], aOffset: Int, b: Array[Double], bOffset: Int,
+                        y: Array[Double], yOffset: Int): Unit = {
+        require(MKL.isMKLLoaded)
+        MKL.vdSub(n, a, aOffset, b, bOffset, y, yOffset)
       }
 
       override def vMul(n: Int, a: Array[Double], aOffset: Int, b: Array[Double], bOffset: Int,

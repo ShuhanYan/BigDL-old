@@ -714,13 +714,34 @@ private[tensor] class DenseTensor[@specialized(Float, Double) T: ClassTag](
 
   override def add(value: T, y: Tensor[T]): Tensor[T] = DenseTensorMath.cadd(this, this, value, y)
 
-  override def add(y: Tensor[T]): Tensor[T] =
-    DenseTensorMath.cadd(this, this, ev.fromType[Int](1), y)
+  override def add(x: Tensor[T]): Tensor[T] = {
+    require(this.nElement() == x.nElement())
+    if (MKL.isMKLLoaded && this.isContiguous() && x.isContiguous()) {
+      ev.vAdd(this.nElement(), this.storage().array(), this.storageOffset() - 1,
+        x.storage().array(), x.storageOffset() - 1,
+        this.storage().array(), this.storageOffset() - 1)
+    }
+    else {
+      DenseTensorMath.cadd(this, this, ev.fromType[Int](1), x)
+    }
+    this
+  }
+
+  override def add(x: Tensor[T], y:Tensor[T]): Tensor[T] = {
+    require(this.nElement() == x.nElement())
+    if (MKL.isMKLLoaded && this.isContiguous() && x.isContiguous()) {
+      ev.vAdd(this.nElement(), y.storage().array(), y.storageOffset() - 1,
+        x.storage().array(), x.storageOffset() - 1,
+        this.storage().array(), this.storageOffset() - 1)
+    } else {
+      DenseTensorMath.cadd(this, x, ev.fromType[Int](1), y)
+    }
+    this
+  }
 
   // Puts the result of x + value * y in current tensor
   override def add(x: Tensor[T], value: T, y: Tensor[T]): Tensor[T] =
     DenseTensorMath.cadd(this, x, value, y)
-
 
   override def add(value: T): Tensor[T] = {
     if (this.isContiguous()) {
@@ -733,8 +754,29 @@ private[tensor] class DenseTensor[@specialized(Float, Double) T: ClassTag](
 
   override def sub(value : T, y : Tensor[T]) = DenseTensorMath.csub(this, this, ev.negative(value), y)
 
-  override def sub(y : Tensor[T]) = DenseTensorMath.csub(this, this, ev.fromType[Int](-1), y)
+  override def sub(x : Tensor[T]) = {
+    require(this.nElement() == x.nElement())
+    if (MKL.isMKLLoaded && this.isContiguous() && x.isContiguous()) {
+      ev.vAdd(this.nElement(), this.storage().array(), this.storageOffset() - 1,
+      x.storage().array(), x.storageOffset() - 1, this.storage().array(), this.storageOffset() - 1)
+    }
+    else {
+      DenseTensorMath.cadd(this, this, ev.fromType[Int](1), x)
+    }
+    this
+  }
 
+  override def sub(x: Tensor[T], y:Tensor[T]): Tensor[T] = {
+    require(this.nElement() == x.nElement())
+    if (MKL.isMKLLoaded && this.isContiguous() && x.isContiguous()) {
+      ev.vSub(this.nElement(), x.storage().array(), x.storageOffset() - 1,
+        y.storage().array(), y.storageOffset() - 1,
+        this.storage().array(), this.storageOffset() - 1)
+    } else {
+      DenseTensorMath.csub(this, x, ev.fromType[Int](1), y)
+    }
+    this
+  }
   // Puts the result of x - value * y in current tensor
   override def sub(x: Tensor[T], value: T, y: Tensor[T]): Tensor[T]= DenseTensorMath.csub(this, x, value, y)
 
@@ -857,11 +899,11 @@ private[tensor] class DenseTensor[@specialized(Float, Double) T: ClassTag](
     this
   }
 
-  override def cmul(y: Tensor[T]): Tensor[T] = DenseTensorMath.cmul(this, null, y)
+  override def cmul(y: Tensor[T]): Tensor[T] = DenseTensorMath.cmul(this, this, y)
 
   override def cmul(x: Tensor[T], y: Tensor[T]): Tensor[T] = DenseTensorMath.cmul(this, x, y)
 
-  override def cdiv(y: Tensor[T]): Tensor[T] = DenseTensorMath.cdiv(this, null, y)
+  override def cdiv(y: Tensor[T]): Tensor[T] = DenseTensorMath.cdiv(this, this, y)
 
   override def cdiv(x: Tensor[T], y: Tensor[T]): Tensor[T] = DenseTensorMath.cdiv(this, x, y)
 

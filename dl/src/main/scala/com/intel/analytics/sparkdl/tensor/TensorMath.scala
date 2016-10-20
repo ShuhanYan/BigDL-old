@@ -76,11 +76,20 @@ trait TensorMath[T] {
    */
   def add(value: T, y: Tensor[T]): Tensor[T]
 
+  /**
+   * accumulates all elements of y into this
+   *
+   * @param y other tensor
+   * @return current tensor
+   */
+  def add(y: Tensor[T]): Tensor[T]
+
   // Puts the result of x + value * y in current tensor
   def add(x: Tensor[T], value: T, y: Tensor[T]): Tensor[T]
 
   def add(value: T): Tensor[T]
 
+  def add(x: Tensor[T], y: Tensor[T]): Tensor[T]
   /**
    * Performs the dot product. The number of elements must match: both Tensors are seen as a 1D
    * vector.
@@ -115,13 +124,7 @@ trait TensorMath[T] {
    */
   def addcdiv(value: T, tensor1: Tensor[T], tensor2: Tensor[T]): Tensor[T]
 
-  /**
-   * accumulates all elements of y into this
-   *
-   * @param y other tensor
-   * @return current tensor
-   */
-  def add(y: Tensor[T]): Tensor[T]
+
 
   def sub(value : T, y : Tensor[T]) : Tensor[T]
 
@@ -135,6 +138,8 @@ trait TensorMath[T] {
    * @return current tensor
    */
   def sub(y : Tensor[T]) : Tensor[T]
+
+  def sub(x : Tensor[T],y : Tensor[T]) : Tensor[T]
 
   def sub(value : T) : Tensor[T]
 

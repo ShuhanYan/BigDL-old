@@ -39,47 +39,7 @@ class TensorMathSpec extends FlatSpec {
   val vectorSmall = Tensor[Float](sizeSmall).rand()
   val scalar = 5
 
-  var testCase = "4096 * 4096 matrix add operation"
-  TestUtils.testMathOperation(() => matrixLargeResult.add(matrixLargeRight), testCase)//matrixLargeLeft,1,
-
-  /*testCase = "512 * 512 matrix add operation"
-  TestUtils.testMathOperation(() => matrixMidResult.add(matrixMidLeft,1,matrixMidRight), testCase, 300)
-
-  testCase = "32 * 32 matrix add operation"
-  TestUtils.testMathOperation(() => matrixSmallResult.add(matrixSmallLeft), testCase, 3000)//,1,matrixSmallRight
-  println(matrixSmallResult)
-
-  testCase = "4096 * 4096 matrix minus operation"
-  TestUtils.testMathOperation(() => matrixLargeResult.sub(matrixLargeLeft,1,matrixLargeRight), testCase)
-
-  testCase = "512 * 512 matrix minus operation"
-  TestUtils.testMathOperation(() => matrixMidResult.sub(matrixMidLeft,1,matrixMidRight), testCase, 300)
-
-  testCase = "32 * 32 matrix minus operation"
-  TestUtils.testMathOperation(() => matrixSmallResult.sub(matrixSmallLeft,1,matrixSmallRight), testCase, 3000)
-  println(matrixSmallResult)
-
-  testCase = "4096 * 4096 matrix multiply operation"
-  TestUtils.testMathOperation(() => matrixLargeResult.cmul(matrixLargeLeft,matrixLargeRight), testCase)
-
-  testCase = "512 * 512 matrix multiply operation"
-  TestUtils.testMathOperation(() => matrixMidResult.cmul(matrixMidLeft,matrixMidRight), testCase, 300)
-
-  testCase = "32 * 32 matrix multiply operation"
-  TestUtils.testMathOperation(() => matrixSmallResult.cmul(matrixSmallLeft,matrixSmallRight), testCase, 3000)
-  println(matrixSmallResult)
-
-  testCase = "4096 * 4096 matrix divide operation"
-  TestUtils.testMathOperation(() => matrixLargeResult.cdiv(matrixLargeLeft,matrixLargeRight), testCase)
-
-  testCase = "512 * 512 matrix divide operation"
-  TestUtils.testMathOperation(() => matrixMidResult.cdiv(matrixMidLeft,matrixMidRight), testCase, 300)
-
-  testCase = "32 * 32 matrix divide operation"
-  TestUtils.testMathOperation(() => matrixSmallResult.cdiv(matrixSmallLeft,matrixSmallRight), testCase, 3000)
-  println(matrixSmallResult)*/
-
-  testCase = "4096 * 4096 matrix addmm operation"
+  var testCase = "4096 * 4096 matrix addmm operation"
   TestUtils.testMathOperation(() => matrixLargeResult.addmm(matrixLargeLeft, matrixLargeRight), testCase)
 
   testCase = "512 * 512 matrix addmm operation"
@@ -96,6 +56,42 @@ class TensorMathSpec extends FlatSpec {
 
   testCase = "32 * 32 matrix addmv operation"
   TestUtils.testMathOperation(() => vectorSmall.addmv(1, matrixSmallRight, vectorSmall), testCase, 3000)
+
+  testCase = "4096 * 4096 matrix add operation"
+  TestUtils.testMathOperation(() => matrixLargeResult.add(matrixLargeLeft,matrixLargeRight), testCase)
+
+  testCase = "512 * 512 matrix add operation"
+  TestUtils.testMathOperation(() => matrixMidResult.add(matrixMidLeft,matrixMidRight), testCase, 300)
+
+  testCase = "32 * 32 matrix add operation"
+  TestUtils.testMathOperation(() => matrixSmallResult.add(matrixSmallLeft,matrixSmallRight), testCase, 3000)
+
+  testCase = "4096 * 4096 matrix minus operation"
+  TestUtils.testMathOperation(() => matrixLargeResult.sub(matrixLargeLeft,matrixLargeRight), testCase)
+
+  testCase = "512 * 512 matrix minus operation"
+  TestUtils.testMathOperation(() => matrixMidResult.sub(matrixMidLeft,matrixMidRight), testCase, 300)
+
+  testCase = "32 * 32 matrix minus operation"
+  TestUtils.testMathOperation(() => matrixSmallResult.sub(matrixSmallLeft,matrixSmallRight), testCase, 3000)
+
+  testCase = "4096 * 4096 matrix multiply operation"
+  TestUtils.testMathOperation(() => matrixLargeResult.cmul(matrixLargeLeft,matrixLargeRight), testCase)
+
+  testCase = "512 * 512 matrix multiply operation"
+  TestUtils.testMathOperation(() => matrixMidResult.cmul(matrixMidLeft,matrixMidRight), testCase, 300)
+
+  testCase = "32 * 32 matrix multiply operation"
+  TestUtils.testMathOperation(() => matrixSmallResult.cmul(matrixSmallLeft,matrixSmallRight), testCase, 3000)
+
+  testCase = "4096 * 4096 matrix divide operation"
+  TestUtils.testMathOperation(() => matrixLargeResult.cdiv(matrixLargeLeft,matrixLargeRight), testCase)
+
+  testCase = "512 * 512 matrix divide operation"
+  TestUtils.testMathOperation(() => matrixMidResult.cdiv(matrixMidLeft,matrixMidRight), testCase, 300)
+
+  testCase = "32 * 32 matrix divide operation"
+  TestUtils.testMathOperation(() => matrixSmallResult.cdiv(matrixSmallLeft,matrixSmallRight), testCase, 3000)
 
   testCase = "4096 * 4096 matrix pow operation"
   TestUtils.testMathOperation(() => matrixLargeLeft.pow(matrixLargeRight,scalar), testCase)
