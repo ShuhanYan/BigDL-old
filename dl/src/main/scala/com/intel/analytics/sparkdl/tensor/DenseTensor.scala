@@ -672,13 +672,14 @@ private[tensor] class DenseTensor[@specialized(Float, Double) T: ClassTag](
   override def *(s: T): Tensor[T] = DenseTensorMath.mul(s, this)
 
   override def *(t: Tensor[T]): Tensor[T] = DenseTensorMath.mul(this, t)
+
   // scalastyle:on methodName
 
   override def sum(): T = DenseTensorMath.sumAll(this)
 
   override def sum(dim: Int): Tensor[T] = DenseTensorMath.sum(null, this, dim - 1)
 
-  override def sum(x : Tensor[T], dim: Int): Tensor[T] = DenseTensorMath.sum(this, x, dim - 1)
+  override def sum(x: Tensor[T], dim: Int): Tensor[T] = DenseTensorMath.sum(this, x, dim - 1)
 
   override def mean(): T = DenseTensorMath.meanAll(this)
 
@@ -807,7 +808,7 @@ private[tensor] class DenseTensor[@specialized(Float, Double) T: ClassTag](
   override def addcmul(value: T, tensor1: Tensor[T], tensor2: Tensor[T]): Tensor[T] = {
     require(tensor1.nElement() == tensor2.nElement() && this.nElement() == tensor1.nElement())
 
-    if(this.isContiguous() && tensor1.isContiguous() && tensor2.isContiguous()) {
+    if (this.isContiguous() && tensor1.isContiguous() && tensor2.isContiguous()) {
       ev.getType() match {
         case "Double" =>
           val v = value.asInstanceOf[Double]
@@ -819,7 +820,8 @@ private[tensor] class DenseTensor[@specialized(Float, Double) T: ClassTag](
           val selfOffset = this.storageOffset() - 1
           val n = this.nElement()
           var i = 0
-          while(i < n) {
+
+          while (i < n) {
             self(i + selfOffset) += t1(t1Offset + i) * t2(t2Offset + i) * v
             i += 1
           }
@@ -833,7 +835,7 @@ private[tensor] class DenseTensor[@specialized(Float, Double) T: ClassTag](
           val selfOffset = this.storageOffset() - 1
           val n = this.nElement()
           var i = 0
-          while(i < n) {
+          while (i < n) {
             self(i + selfOffset) += t1(t1Offset + i) * t2(t2Offset + i) * v
             i += 1
           }
@@ -841,7 +843,7 @@ private[tensor] class DenseTensor[@specialized(Float, Double) T: ClassTag](
     } else {
       val func = new TensorFunc6[T] {
         override def apply(data1: Array[T], offset1: Int, data2: Array[T], offset2: Int,
-                           data3: Array[T], offset3: Int): Unit = {
+          data3: Array[T], offset3: Int): Unit = {
           data1(offset1) = ev.plus(data1(offset1), ev.times(ev.times(data2(offset2),
             data3(offset3)), value))
         }
@@ -867,7 +869,8 @@ private[tensor] class DenseTensor[@specialized(Float, Double) T: ClassTag](
           val selfOffset = this.storageOffset() - 1
           val n = this.nElement()
           var i = 0
-          while(i < n) {
+
+          while (i < n) {
             self(i + selfOffset) += t1(t1Offset + i) / t2(t2Offset + i) * v
             i += 1
           }
@@ -881,7 +884,8 @@ private[tensor] class DenseTensor[@specialized(Float, Double) T: ClassTag](
           val selfOffset = this.storageOffset() - 1
           val n = this.nElement()
           var i = 0
-          while(i < n) {
+
+          while (i < n) {
             self(i + selfOffset) += t1(t1Offset + i) / t2(t2Offset + i) * v
             i += 1
           }
@@ -889,7 +893,7 @@ private[tensor] class DenseTensor[@specialized(Float, Double) T: ClassTag](
     } else {
       val func = new TensorFunc6[T] {
         override def apply(data1: Array[T], offset1: Int, data2: Array[T], offset2: Int,
-                           data3: Array[T], offset3: Int): Unit = {
+          data3: Array[T], offset3: Int): Unit = {
           data1(offset1) = ev.plus(data1(offset1), ev.times(ev.divide(data2(offset2),
             data3(offset3)), value))
         }
@@ -1313,7 +1317,7 @@ private[tensor] class DenseTensor[@specialized(Float, Double) T: ClassTag](
 
   override def pow(n: T): Tensor[T] = DenseTensorMath.pow[T](this,this,n)
 
-  override def log(x:Tensor[T]): Tensor[T] = {
+  override def log(x: Tensor[T]): Tensor[T] = {
     require(this.nElement() == x.nElement())
     if (MKL.isMKLLoaded && this.isContiguous() && x.isContiguous()) {
       ev.vLn(this.nElement(), x.storage().array(), x.storageOffset() - 1,
@@ -1331,7 +1335,7 @@ private[tensor] class DenseTensor[@specialized(Float, Double) T: ClassTag](
 
   override def log(): Tensor[T] = DenseTensorMath.log[T](this,this)
 
-  override def exp(x:Tensor[T]): Tensor[T] = {
+  override def exp(x: Tensor[T]): Tensor[T] = {
     require(this.nElement() == x.nElement())
     if (MKL.isMKLLoaded && this.isContiguous() && x.isContiguous()) {
       ev.vExp(this.nElement(), x.storage().array(), x.storageOffset() - 1,
@@ -1349,7 +1353,7 @@ private[tensor] class DenseTensor[@specialized(Float, Double) T: ClassTag](
 
   override def exp(): Tensor[T] = DenseTensorMath.exp[T](this,this)
 
-  override def sqrt(x:Tensor[T]): Tensor[T] = {
+  override def sqrt(x: Tensor[T]): Tensor[T] = {
     require(this.nElement() == x.nElement())
     if (MKL.isMKLLoaded && this.isContiguous() && x.isContiguous()) {
       ev.vSqrt(this.nElement(), x.storage().array(), x.storageOffset() - 1,
@@ -1367,7 +1371,7 @@ private[tensor] class DenseTensor[@specialized(Float, Double) T: ClassTag](
 
   override def sqrt(): Tensor[T] = DenseTensorMath.sqrt[T](this,this)
 
-  override def log1p(x:Tensor[T]): Tensor[T] = {
+  override def log1p(x: Tensor[T]): Tensor[T] = {
     require(this.nElement() == x.nElement())
     if (MKL.isMKLLoaded && this.isContiguous() && x.isContiguous()) {
       ev.vLog1p(this.nElement(), x.storage().array(), x.storageOffset() - 1,

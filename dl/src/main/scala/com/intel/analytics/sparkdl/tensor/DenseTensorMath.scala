@@ -75,6 +75,7 @@ object DenseTensorMath {
     require(self.nElement() == y.nElement(), "element number doesn't match")
     if (self.isContiguous() && y.isContiguous() && MKL.isMKLLoaded) {
       ev.vDiv(self.nElement(), x.storage().array(), x.storageOffset() - 1,
+
         y.storage().array(), y.storageOffset() - 1, self.storage().array(), self.storageOffset()
           - 1)
     } else {
@@ -263,7 +264,7 @@ object DenseTensorMath {
       new DenseTensor(new ArrayStorage(Array(result)))
     } else if (self.nDimension() == 2 && t.nDimension() == 1) {
       val result = new DenseTensor[T](self.size(1))
-      DenseTensorBLAS.dgemv[T](ev.fromType[Int](1), self, t, ev.fromType[Int](0), result)
+      DenseTensorBLAS.gemv[T](ev.fromType[Int](1), self, t, ev.fromType[Int](0), result)
       result
     } else if (self.nDimension() == 2 && t.nDimension() == 2) {
       val result = new DenseTensor[T](t.size(2), self.size(1)).t()
@@ -375,8 +376,7 @@ object DenseTensorMath {
   }
 
   def sum[@specialized(Float, Double) T: ClassTag](self: DenseTensor[T], x: Tensor[T], _dim: Int)
-                                                  (implicit ev: TensorNumeric[T]): Tensor[T] = {
-
+    (implicit ev: TensorNumeric[T]): Tensor[T] = {
     require(_dim >= 0 && _dim < x.nDimension, s"dimension ${_dim + 1} out of range")
     val result = if (self == null) new DenseTensor[T]() else self
     val sizes = x.size()
@@ -474,7 +474,7 @@ object DenseTensorMath {
       __m2 = _m2.contiguous()
     }
 
-    DenseTensorBLAS.dgemm[T](transpose_m1, transpose_m2, _r.size(index1), _r.size(index2),
+    DenseTensorBLAS.gemm[T](transpose_m1, transpose_m2, _r.size(index1), _r.size(index2),
       __m1.size(index2), alpha, __m1.storage().array(), __m1.storageOffset() - 1,
       if (transpose_m1 == "n") __m1.stride(index2) else __m1.stride(index1),
       __m2.storage().array(), __m2.storageOffset() - 1,

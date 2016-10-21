@@ -65,7 +65,6 @@ public class MKL {
     public native static void vdSub(int n, double[] a, int aOffset, double[] b, int bOffset,
                                     double[] y, int yOffset);
 
-
     public native static void vsMul(int n, float[] a, int aOffset, float[] b, int bOffset,
                                     float[] y, int yOffset);
 
