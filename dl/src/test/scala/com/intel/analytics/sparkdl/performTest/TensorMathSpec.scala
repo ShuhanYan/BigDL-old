@@ -24,7 +24,7 @@ class TensorMathSpec extends FlatSpec {
   RNG.setSeed(Seed)
   val sizeLarge = 4096
   val matrixLargeLeft = init(sizeLarge,-1000,1000,0.5f)
-  val matrixLargeRight = init(sizeLarge,-1000,1000,0.5f)
+  val matrixLargeRight = init(sizeLarge,-500,500,0.5f)
   val matrixLargeResult = Tensor[Float](sizeLarge, sizeLarge).fill(0.0f)
   val vectorLarge = Tensor[Float](sizeLarge).rand()
   val sizeMid = 512
@@ -40,108 +40,102 @@ class TensorMathSpec extends FlatSpec {
   val scalar = 5
 
   var testCase = "4096 * 4096 matrix addmm operation"
-  TestUtils.testMathOperation(() => matrixLargeResult.addmm(matrixLargeLeft, matrixLargeRight), testCase)
+  TestUtils.testMathOperation(() => matrixLargeResult.addmm(matrixLargeLeft, matrixLargeRight), testCase, 100)
 
   testCase = "512 * 512 matrix addmm operation"
-  TestUtils.testMathOperation(() => matrixMidResult.addmm(matrixMidLeft, matrixMidRight), testCase, 300)
+  TestUtils.testMathOperation(() => matrixMidResult.addmm(matrixMidLeft, matrixMidRight), testCase, 1000)
 
   testCase = "32 * 32 matrix addmm operation"
-  TestUtils.testMathOperation(() => matrixSmallResult.addmm(matrixSmallLeft, matrixSmallRight), testCase, 3000)
+  TestUtils.testMathOperation(() => matrixSmallResult.addmm(matrixSmallLeft, matrixSmallRight), testCase, 100000)
 
   testCase = "4096 * 4096 matrix addmv operation"
-  TestUtils.testMathOperation(() => vectorLarge.addmv(1, matrixLargeRight, vectorLarge), testCase)
+  TestUtils.testMathOperation(() => vectorLarge.addmv(1, matrixLargeRight, vectorLarge), testCase, 100)
 
   testCase = "512 * 512 matrix addmv operation"
-  TestUtils.testMathOperation(() => vectorMid.addmv(1, matrixMidRight, vectorMid), testCase, 300)
+  TestUtils.testMathOperation(() => vectorMid.addmv(1, matrixMidRight, vectorMid), testCase, 1000)
 
   testCase = "32 * 32 matrix addmv operation"
-  TestUtils.testMathOperation(() => vectorSmall.addmv(1, matrixSmallRight, vectorSmall), testCase, 3000)
+  TestUtils.testMathOperation(() => vectorSmall.addmv(1, matrixSmallRight, vectorSmall), testCase, 100000)
 
   testCase = "4096 * 4096 matrix add operation"
-  TestUtils.testMathOperation(() => matrixLargeResult.add(matrixLargeLeft,matrixLargeRight), testCase)
+  TestUtils.testMathOperation(() => matrixLargeResult.add(matrixLargeLeft,matrixLargeRight), testCase, 100)
 
   testCase = "512 * 512 matrix add operation"
-  TestUtils.testMathOperation(() => matrixMidResult.add(matrixMidLeft,matrixMidRight), testCase, 300)
+  TestUtils.testMathOperation(() => matrixMidResult.add(matrixMidLeft,matrixMidRight), testCase, 1000)
 
   testCase = "32 * 32 matrix add operation"
-  TestUtils.testMathOperation(() => matrixSmallResult.add(matrixSmallLeft,matrixSmallRight), testCase, 3000)
+  TestUtils.testMathOperation(() => matrixSmallResult.add(matrixSmallLeft,matrixSmallRight), testCase, 100000)
 
   testCase = "4096 * 4096 matrix minus operation"
-  TestUtils.testMathOperation(() => matrixLargeResult.sub(matrixLargeLeft,matrixLargeRight), testCase)
+  TestUtils.testMathOperation(() => matrixLargeResult.sub(matrixLargeLeft,matrixLargeRight), testCase, 100)
 
   testCase = "512 * 512 matrix minus operation"
-  TestUtils.testMathOperation(() => matrixMidResult.sub(matrixMidLeft,matrixMidRight), testCase, 300)
+  TestUtils.testMathOperation(() => matrixMidResult.sub(matrixMidLeft,matrixMidRight), testCase, 1000)
 
   testCase = "32 * 32 matrix minus operation"
-  TestUtils.testMathOperation(() => matrixSmallResult.sub(matrixSmallLeft,matrixSmallRight), testCase, 3000)
+  TestUtils.testMathOperation(() => matrixSmallResult.sub(matrixSmallLeft,matrixSmallRight), testCase, 100000)
 
   testCase = "4096 * 4096 matrix multiply operation"
-  TestUtils.testMathOperation(() => matrixLargeResult.cmul(matrixLargeLeft,matrixLargeRight), testCase)
+  TestUtils.testMathOperation(() => matrixLargeResult.cmul(matrixLargeLeft,matrixLargeRight), testCase, 100)
 
   testCase = "512 * 512 matrix multiply operation"
-  TestUtils.testMathOperation(() => matrixMidResult.cmul(matrixMidLeft,matrixMidRight), testCase, 300)
+  TestUtils.testMathOperation(() => matrixMidResult.cmul(matrixMidLeft,matrixMidRight), testCase, 1000)
 
   testCase = "32 * 32 matrix multiply operation"
-  TestUtils.testMathOperation(() => matrixSmallResult.cmul(matrixSmallLeft,matrixSmallRight), testCase, 3000)
+  TestUtils.testMathOperation(() => matrixSmallResult.cmul(matrixSmallLeft,matrixSmallRight), testCase, 100000)
 
   testCase = "4096 * 4096 matrix divide operation"
-  TestUtils.testMathOperation(() => matrixLargeResult.cdiv(matrixLargeLeft,matrixLargeRight), testCase)
+  TestUtils.testMathOperation(() => matrixLargeResult.cdiv(matrixLargeLeft,matrixLargeRight), testCase, 100)
 
   testCase = "512 * 512 matrix divide operation"
-  TestUtils.testMathOperation(() => matrixMidResult.cdiv(matrixMidLeft,matrixMidRight), testCase, 300)
+  TestUtils.testMathOperation(() => matrixMidResult.cdiv(matrixMidLeft,matrixMidRight), testCase, 1000)
 
   testCase = "32 * 32 matrix divide operation"
-  TestUtils.testMathOperation(() => matrixSmallResult.cdiv(matrixSmallLeft,matrixSmallRight), testCase, 3000)
+  TestUtils.testMathOperation(() => matrixSmallResult.cdiv(matrixSmallLeft,matrixSmallRight), testCase, 100000)
 
   testCase = "4096 * 4096 matrix pow operation"
-  TestUtils.testMathOperation(() => matrixLargeLeft.pow(matrixLargeRight,scalar), testCase)
+  TestUtils.testMathOperation(() => matrixLargeLeft.pow(matrixLargeRight,scalar), testCase, 100)
 
   testCase = "512 * 512 matrix pow operation"
-  TestUtils.testMathOperation(() => matrixMidLeft.pow(matrixMidRight, scalar), testCase, 300)
+  TestUtils.testMathOperation(() => matrixMidLeft.pow(matrixMidRight, scalar), testCase, 1000)
 
   testCase = "32 * 32 matrix pow operation"
-  TestUtils.testMathOperation(() => matrixSmallLeft.pow(matrixSmallRight, scalar), testCase, 3000)
-  println(matrixSmallLeft)
+  TestUtils.testMathOperation(() => matrixSmallLeft.pow(matrixSmallRight, scalar), testCase, 100000)
 
   testCase = "4096 * 4096 matrix log operation"
-  TestUtils.testMathOperation(() => matrixLargeLeft.log(matrixLargeRight), testCase)
+  TestUtils.testMathOperation(() => matrixLargeLeft.log(matrixLargeRight), testCase, 100)
 
   testCase = "512 * 512 matrix log operation"
-  TestUtils.testMathOperation(() => matrixMidLeft.log(matrixMidRight), testCase, 300)
+  TestUtils.testMathOperation(() => matrixMidLeft.log(matrixMidRight), testCase, 1000)
 
   testCase = "32 * 32 matrix log operation"
-  TestUtils.testMathOperation(() => matrixSmallLeft.log(matrixSmallRight), testCase, 3000)
-
-  println(matrixSmallLeft)
+  TestUtils.testMathOperation(() => matrixSmallLeft.log(matrixSmallRight), testCase, 100000)
 
   testCase = "4096 * 4096 matrix exp operation"
-  TestUtils.testMathOperation(() => matrixLargeLeft.exp(matrixLargeRight), testCase)
+  TestUtils.testMathOperation(() => matrixLargeLeft.exp(matrixLargeRight), testCase, 100)
 
   testCase = "512 * 512 matrix exp operation"
-  TestUtils.testMathOperation(() => matrixMidLeft.exp(matrixMidRight), testCase, 300)
+  TestUtils.testMathOperation(() => matrixMidLeft.exp(matrixMidRight), testCase, 1000)
 
   testCase = "32 * 32 matrix exp operation"
-  TestUtils.testMathOperation(() => matrixSmallLeft.exp(matrixSmallRight), testCase, 3000)
-  println(matrixSmallLeft)
+  TestUtils.testMathOperation(() => matrixSmallLeft.exp(matrixSmallRight), testCase, 100000)
 
   testCase = "4096 * 4096 matrix sqrt operation"
-  TestUtils.testMathOperation(() => matrixLargeLeft.sqrt(matrixLargeRight), testCase)
+  TestUtils.testMathOperation(() => matrixLargeLeft.sqrt(matrixLargeRight), testCase, 100)
 
   testCase = "512 * 512 matrix sqrt operation"
-  TestUtils.testMathOperation(() => matrixMidLeft.sqrt(matrixMidRight), testCase, 300)
+  TestUtils.testMathOperation(() => matrixMidLeft.sqrt(matrixMidRight), testCase, 1000)
 
   testCase = "32 * 32 matrix sqrt operation"
-  TestUtils.testMathOperation(() => matrixSmallLeft.sqrt(matrixSmallRight), testCase, 3000)
-  println(matrixSmallLeft)
+  TestUtils.testMathOperation(() => matrixSmallLeft.sqrt(matrixSmallRight), testCase, 100000)
 
   testCase = "4096 * 4096 matrix log1p operation"
-  TestUtils.testMathOperation(() => matrixLargeLeft.log1p(matrixLargeRight), testCase)
+  TestUtils.testMathOperation(() => matrixLargeLeft.log1p(matrixLargeRight), testCase, 100)
 
   testCase = "512 * 512 matrix log1p operation"
-  TestUtils.testMathOperation(() => matrixMidLeft.log1p(matrixMidRight), testCase, 300)
+  TestUtils.testMathOperation(() => matrixMidLeft.log1p(matrixMidRight), testCase, 1000)
 
   testCase = "32 * 32 matrix log1p operation"
-  TestUtils.testMathOperation(() => matrixSmallLeft.log1p(matrixSmallRight), testCase, 3000)
-  println(matrixSmallLeft)
+  TestUtils.testMathOperation(() => matrixSmallLeft.log1p(matrixSmallRight), testCase, 100000)
 
 }

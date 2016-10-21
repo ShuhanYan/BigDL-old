@@ -25,7 +25,6 @@ JNIEXPORT jint JNICALL Java_com_intel_analytics_sparkdl_mkl_MKL_getNumThreads
   (JNIEnv * env, jclass cls) {
   return omp_get_max_threads();
 }
-
 /*
   * Class:     com_intel_analytics_sparkdl_mkl_MKL
   * Method:    vsAdd
@@ -34,13 +33,10 @@ JNIEXPORT jint JNICALL Java_com_intel_analytics_sparkdl_mkl_MKL_getNumThreads
 JNIEXPORT void JNICALL Java_com_intel_analytics_sparkdl_mkl_MKL_vsAdd
    (JNIEnv * env, jclass cls, jint n, jfloatArray a, jint aOffset, jfloatArray b,
    jint bOffset, jfloatArray y, jint yOffset) {
-
    jfloat * jni_a = (*env)->GetPrimitiveArrayCritical(env, a, JNI_FALSE);
    jfloat * jni_b = (*env)->GetPrimitiveArrayCritical(env, b, JNI_FALSE);
    jfloat * jni_y = (*env)->GetPrimitiveArrayCritical(env, y, JNI_FALSE);
-
    vsAdd( n, jni_a + aOffset, jni_b + bOffset, jni_y + yOffset);
-
    (*env)->ReleasePrimitiveArrayCritical(env, y, jni_y, 0);
    (*env)->ReleasePrimitiveArrayCritical(env, b, jni_b, 0);
    (*env)->ReleasePrimitiveArrayCritical(env, a, jni_a, 0);

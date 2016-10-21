@@ -519,43 +519,69 @@ class DenseTensorMathSpec extends FlatSpec with Matchers {
     )), 1, Array(5, 5)))
   }
 
-  "powx" should "return correct value" in {
-    val t: Tensor[Float] = Tensor(1, 3)
-    var i = 1
-    t.apply1(_ => {
-      i = i + 1; i
-    })
-    val r = Tensor[Float](1,3)
+  "powx(x,a)" should "return correct value" in {
+    val t: Tensor[Double] = Tensor(Storage(Array(2.0,3.0,4.0)))
+    val r: Tensor[Double] = Tensor(Storage(Array(0.0,0.0,0.0)))
     r.pow(t,2)
     r should be(Tensor(Storage(Array(4.0,9.0,16.0))))
   }
 
-  "log" should "return correct value" in {
+  "powx(a)" should "return correct value" in {
+    val t: Tensor[Double] = Tensor(Storage(Array(2.0,3.0,4.0)))
+    t.pow(2)
+    t should be(Tensor(Storage(Array(4.0,9.0,16.0))))
+  }
+
+  "log(x)" should "return correct value" in {
     val t: Tensor[Double] = Tensor(Storage(Array(2.0,3.0,4.0)))
     val r: Tensor[Double] = Tensor(Storage(Array(0.0,0.0,0.0)))
     r.log(t)
     r should be(Tensor(Storage(Array(0.6931472,1.0986123,1.3862944))))
   }
 
-  "exp" should "return correct value" in {
+  "log()" should "return correct value" in {
+    val t: Tensor[Double] = Tensor(Storage(Array(2.0,3.0,4.0)))
+    t.log(t)
+    t should be(Tensor(Storage(Array(0.6931472,1.0986123,1.3862944))))
+  }
+
+  "exp(x)" should "return correct value" in {
     val t: Tensor[Double] = Tensor(Storage(Array(2.0,3.0,4.0)))
     val r: Tensor[Double] = Tensor(Storage(Array(0.0,0.0,0.0)))
     r.exp(t)
     r should be(Tensor(Storage(Array(7.389056,20.085537,54.59815))))
   }
 
-  "sqrt" should "return correct value" in {
+  "exp()" should "return correct value" in {
+    val t: Tensor[Double] = Tensor(Storage(Array(2.0,3.0,4.0)))
+    t.exp()
+    t should be(Tensor(Storage(Array(7.389056,20.085537,54.59815))))
+  }
+
+  "sqrt(x)" should "return correct value" in {
     val t: Tensor[Double] = Tensor(Storage(Array(2.0,3.0,4.0)))
     val r: Tensor[Double] = Tensor(Storage(Array(0.0,0.0,0.0)))
     r.sqrt(t)
     r should be(Tensor(Storage(Array(1.4142135,1.7320508,2.0))))
   }
 
-  "log1p" should "return correct value" in {
+  "sqrt()" should "return correct value" in {
+    val t: Tensor[Double] = Tensor(Storage(Array(2.0,3.0,4.0)))
+    t.sqrt()
+    t should be(Tensor(Storage(Array(1.4142135,1.7320508,2.0))))
+  }
+
+  "log1p(x)" should "return correct value" in {
     val t: Tensor[Double] = Tensor(Storage(Array(2.0,3.0,4.0)))
     val r: Tensor[Double] = Tensor(Storage(Array(0.0,0.0,0.0)))
     r.log1p(t)
     r should be(Tensor(Storage(Array(1.0986123,1.3862944,1.609438))))
+  }
+
+  "log1p()" should "return correct value" in {
+    val t: Tensor[Double] = Tensor(Storage(Array(2.0,3.0,4.0)))
+    t.log1p()
+    t should be(Tensor(Storage(Array(1.0986123,1.3862944,1.609438))))
   }
 
   "matrix sub(T)" should "return correct value" in{
